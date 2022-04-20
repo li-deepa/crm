@@ -1,0 +1,27 @@
+#logo{
+    height:36px;
+    width: 46px;
+
+
+
+       }
+body {
+    background-color: rgb(239, 239, 231);
+}
+
+#total-orders {
+    background-color: burlywood;
+}
+
+#orders-delivered {
+    background-color: rgb(85, 180, 172);
+}
+
+#orders-pending {
+    background-color: orange;
+}
+
+
+
+   
+   
