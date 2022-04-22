@@ -1,0 +1,61 @@
+{% extends 'main.html' %}
+
+
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col">
+    <div class="col-md">
+
+        <div class="card card-body">
+            <h5>Customers</h5>
+        </div>
+
+        <div class="card card-body">
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Date Created</th>
+                    <th>#Orders</th>
+                    <!-- <th>Amount paid</th> -->
+                </tr>
+                {% for i in customers %}
+                <tr>
+                    <td><a class="btn btn-sm btn-info" href="{% url 'customer' i.id %}">{{i.name}}</a></td>
+                <td>{{i.phone}}</td>
+                <td>{{i.email}}</td>
+                <td>{{i.date_created}}</td>
+                
+                
+                <td>{{orders.i.product}}</td> 
+                
+                
+                <!-- <td>{{products.price}}</td>  -->
+               
+            </tr>
+            {% endfor%}
+                <!-- <tr>
+                    {% for i in orders %}
+                    <td>
+                    {{orders.product.price}}
+                </td>
+                    {% endfor%}
+                </tr> -->
+            </table>
+           
+        </div>
+        
+    </div>
+</div>
+
+</div>
+
+{% endblock %}
+
+
+
+

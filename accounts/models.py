@@ -1,6 +1,3 @@
-from sre_constants import CATEGORY
-from sre_parse import CATEGORIES
-from telnetlib import STATUS
 from django.db import models
 
 # Create your models here.
