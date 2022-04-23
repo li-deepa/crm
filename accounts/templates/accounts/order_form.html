@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col">
+    <div class="col-md">
+
+        <div class="card card-body">
+            <h5>Products</h5>
+        </div>
+
+        <div class="card card-body">
+<form method="post" action="">
+    <!-- {% for hidden_field in form.hidden_fields %}      
+    {% endfor %}  -->
+    {% csrf_token %}
+    {{formset.management_form}}
+    {% for form in formset %}
+    {{form}}
+    <hr>
+    {% endfor %}
+    <input type="submit" name="Submit">
+</form>
+
+</div>
+        
+</div>
+</div>
+
+</div>
+{% endblock %}

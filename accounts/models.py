@@ -50,4 +50,4 @@ class Order(models.Model):
 
 
     def __str__(self) -> str:
-        return self.status
+        return self.product.name

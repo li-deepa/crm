@@ -20,31 +20,67 @@
                     <th>Phone</th>
                     <th>Email</th>
                     <th>Date Created</th>
-                    <th>#Orders</th>
+                   
                     <!-- <th>Amount paid</th> -->
                 </tr>
                 {% for i in customers %}
                 <tr>
-                    <td><a class="btn btn-sm btn-info" href="{% url 'customer' i.id %}">{{i.name}}</a></td>
+                    <td><a class="btn btn-sm btn-outline" href="{% url 'customer' i.id %}">{{i.name}}</a></td>
                 <td>{{i.phone}}</td>
                 <td>{{i.email}}</td>
                 <td>{{i.date_created}}</td>
+               
                 
-                
-                <td>{{orders.i.product}}</td> 
-                
+               
                 
                 <!-- <td>{{products.price}}</td>  -->
                
             </tr>
             {% endfor%}
-                <!-- <tr>
-                    {% for i in orders %}
-                    <td>
-                    {{orders.product.price}}
-                </td>
-                    {% endfor%}
-                </tr> -->
+                
+               
+            </table>
+           
+        </div>
+        
+    </div>
+</div>
+
+    <div class="col">
+    <div class="col-md">
+
+        <div class="card card-body">
+            <h5>Orders</h5>
+        </div>
+
+        <div class="card card-body">
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Order Date Created</th>
+
+                </tr>
+                {% for order in orders %}
+                <tr>
+               
+               
+                
+                <td>{{order.customer}}</td> 
+                <td>{{order.product}}</td>
+                <td>{{order.product.price}}</td> 
+               
+                 
+                <td>{{order.status}}</td> 
+                
+                <td>{{order.date_created}}</td> 
+                
+            </tr>
+            {% endfor%}
+            
+               
             </table>
            
         </div>

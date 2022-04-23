@@ -14,8 +14,8 @@
                 <div class="card-body">
                     <h3 class="card-title"></h3>
 
-                    <button type="button" class="btn btn-outline-primary btn-sm btn-block">Update Customer</button>
-                    <button type="button" class="btn btn-outline-warning btn-sm btn-block">Delete Customer</button>
+                    <a  class="btn btn-outline-primary btn-sm btn-block" href="">Update Customer</a>
+                    <a  class="btn btn-outline-warning btn-sm btn-block" href="{% url 'create_order' customer.id %}">Place Order</a>
                 </div>
             
         </div>
@@ -59,7 +59,11 @@
         <div class="col-sm">
           <div class="card">
             <div class="card-body">
-                <a href="#" class="btn btn-primary">Search</a>
+                <form method="get">
+                    {% csrf_token %}
+                    {{ myFilter.form }}
+                <button class="btn btn-primary">Search</button>
+            </form>
             </div>
           </div>
         </div>
@@ -82,8 +86,8 @@
                 <td>{{order.product.category}}</td>
                 <td>{{order.date_created}}</td>
                 <td>{{order.status}}</td>
-                <td><a class="btn btn-sm btn-info">update</a></td>
-                <td><a class="btn btn-sm btn-danger">delete</a></td>
+                <td><a class="btn btn-sm btn-info" href="{% url 'update_order' order.id %}">update</a></td>
+                <td><a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.id %}">delete</a></td>
             </tr>
                 {% endfor%}
                 </tr>
