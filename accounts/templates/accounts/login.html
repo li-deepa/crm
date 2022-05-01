@@ -1,0 +1,71 @@
+{% extends 'main.html'%}
+{% load static %}
+{%block content%}
+<div class="row">
+
+<div class="card col"></div>
+<!-- <div class="container-xxxl"  style="background: cyan;"> -->
+<div class="card" style="display:flex;align-items:center;height:550px;" >
+<div class="card text-white bg-secondary mb-10" style="display:block;align-items:center; top:50px;max-width: 25rem;height:60%;">
+    <div class="col-lg">
+
+        <div class=" text-center card-header">
+            <h5>Login</h5>
+        </div>
+
+        <div class=" card-body" style="display:flex;align-items:center;" >
+            <form method="post" action="" >
+                {% csrf_token %}
+               
+                <div class="form-group row md-10" >
+                    <label class="col-sm-2"><img src="{% static '/images/icons8-username-48.png' %}" width="35px" height="35px"></label>
+                    <div class="col-sm-10">
+                        <input  class="card btn-block" type="text"  name="username" placeholder="enter username" style="padding: 0.375rem 0.75rem;" >
+                    </div>
+                </div>
+               
+                <div class="form-group row">
+                    <label class="col-sm-2" ><img src="{% static '/images/iconfinder-key-4341299_120569.png' %}" width="35px" height="35px"></label>
+                    <div class="col-sm-10">
+                        <input class="card btn-block" type="password" name="password"   placeholder="enter password" style="padding: 0.375rem 0.75rem;">
+
+                    </div>
+                </div>
+               
+              
+            
+           
+               <button type="submit" class="btn btn-primary btn-block"  style="justify-self: center;" >
+              Login
+               </button>
+               
+                <button class="btn btn-info btn-block ">
+                    Don't have an account?
+                <a href="{% url 'register' %}" class="btn btn-sm-outline-info">Register</a>
+            </button>
+            
+        </form>
+            
+           
+        </div>
+        
+    </div>
+</div>
+</div>
+<div class="card col "  >
+    <p style="padding-top: 100px;"></p> 
+ </div></div>
+
+<!-- <script>
+    var form_fields=document.getElementsByTagName('input')
+    form_fields[1].placeholder='Enter Username';
+    // form_fields[2].placeholder='Enter EMail Address';
+    form_fields[3].placeholder='Enter Password';
+    // form_fields[4].placeholder='Confirm Password';
+
+    for (var field in form_fields){
+        form_fields[field].className += 'form-control'
+    }
+</script> -->
+
+{% endblock %}

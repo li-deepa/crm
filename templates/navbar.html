@@ -3,22 +3,60 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <!-- <a class="navbar-brand" href="#">Navbar</a> -->
     <img src="{% static '/images/1.JPG' %}" id="logo">
+    {% if request.user.is_authenticated  %}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+   
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
+        {% if request.user.is_staff  %}
         <li class="nav-item active">
           <a class="nav-link" href="{% url 'home'%}">Dashboard </a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="{% url 'customer_info'%}">Customers data</a>
+        </li>
+        {% endif %}
+        <li class="nav-item">
           <a class="nav-link" href="{% url 'products'%}">Products</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'customer_info'%}">Customers data</a>
+          <a class="nav-link" href="{% url 'profile' %}">Profile</a>
         </li>
        
      
       </ul>
+     
     </div>
+
+<span >
+  <div class="nav justify-content-end">
+    <div class="nav-item">
+      <h6 style="color: bisque;">Hello,{{request.user.username}}</h6></span>
+    </li>
+    <div></div>
+    <li class="nav-item ">
+      <a class="btn-outline-info" href="{% url 'logout'%}">Logout</a>    </li>
+    
+    </div>
+
+</span>
+
+{% else %}
+<span >
+       
+  <ul class="nav justify-content-right">
+    <li class="nav-item">
+      <a class="nav-link  btn-outline-warning" href="{% url 'login'%}">Login</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link btn-outline-warning" href="{% url 'register'%}">Register</a>
+    </li>
+    
+  </ul>
+  
+</span>
+{% endif %}
+
   </nav>
