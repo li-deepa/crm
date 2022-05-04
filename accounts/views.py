@@ -1,9 +1,7 @@
-from functools import total_ordering
-from multiprocessing import context
 from django.shortcuts import render,redirect
 from .models import *
 from django.contrib.auth.models import User,Group
-from .forms import OrderForm,CreateUserForm
+from .forms import CustomerForm, OrderForm,CreateUserForm
 from django.forms import inlineformset_factory
 from .filters import OrderFilter
 from django.contrib.auth.forms import UserCreationForm
@@ -23,9 +21,11 @@ def registerPage(request):
             user=form.save()
             username=form.cleaned_data.get('username')
             
-            group=Group.objects.get(name='customer')
-            user.groups.add(group)
-            Customer.objects.create(user=user,)
+            # group=Group.objects.get(name='customer')
+            # user.groups.add(group)
+            # # Customer.objects.create(
+            #     user=user,
+            #     name=user.username,)
 
             messages.success(request,'account was created for'+username)
             return redirect('login')
@@ -112,7 +112,7 @@ def createOrder(request,pk):
         formset=OrderFormSet(request.POST,instance=customer)
         if formset.is_valid():
             formset.save()
-            return redirect('products')
+            return redirect('profile')
     context={'formset':formset}
     return render(request,"accounts/order_form.html",context)
 
@@ -137,7 +137,7 @@ def deleteOrder(request,pk):
         order=Order.objects.get(id=pk)
         if request.method =='POST':
             order.delete()
-            return redirect('home')
+            return redirect('profile')
         context={'item':order}
         return render(request,"accounts/delete.html",context)
 
@@ -159,3 +159,16 @@ def profile(request):
     "delivered":delivered,"pending":pending,
     'out_delivery':out_delivery}
     return render(request,"accounts/profile.html",context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer','admin'])
+def profile_settings(request):
+    customer=request.user.customer
+    form=CustomerForm(instance=customer)
+    if request.method =='POST':
+        form=CustomerForm(request.POST,request.FILES,instance=customer)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    context={'form':form}
+    return render(request,"accounts/profile_settings.html",context)

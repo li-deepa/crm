@@ -1,13 +1,14 @@
 html{ overflow-y: scroll;}
 #logo{
-    height:36px;
-    width: 66px;
-
+    max-height:46px;
+    max-width: 46px;
+    margin: 0 auto;
+    border-radius: 50%;
 
 
        }
 body {
-    background-color: rgb(239, 239, 231);
+    background-color: white;
 }
 
 #total-orders {
@@ -23,6 +24,14 @@ body {
 }
 
 
+/* .row{
+    background-color: aqua;
+} */
 
 
-   
+/* .profile-pic{
+    max-width: 200px;
+    max-height: 200px;
+    margin: 0 auto;
+    border-radius: 50%;
+} */

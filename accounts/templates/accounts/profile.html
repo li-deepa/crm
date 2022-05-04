@@ -9,7 +9,7 @@
         <div class="card card-body">
             <h5>{{request.user.username.upper}} Profile</h5>
         </div> 
-       
+        
         <div class="card card-body">
           <table class="table table-sm">
                 <tr>
@@ -19,16 +19,16 @@
                     <th>email</th>
                     <th>Edit profile</th>
                     <th>create order</th>
-                    <th>Orders</th>
+                    <!-- <th>Orders</th> -->
                 </tr>
                
                 <tr>
-                    <td>{{user.username}}</td>
-                    <td>{{user.phone}}</td>
-                    <td>{{user.email}}</td>
-                    <td><a class="btn btn-sm btn-info" href="">Edit </a></td>
-                    <td><a class="btn btn-sm btn-info" href="{% url 'create_order' request.user.id %}">create</a></td>
-                    <td><a class="btn btn-sm btn-info" href=" {% url 'customer' request.user.id %}">orders</a></td>
+                    <td>{{request.user.username}}</td>
+                    <td>{{request.user.customer.phone}}</td>
+                    <td>{{request.user.customer.email}}</td>
+                    <td><a class="btn btn-sm btn-info" href="{% url 'profile_settings' %}">Edit </a></td>
+                    <td><a class="btn btn-sm btn-info" href="{% url 'create_order' request.user.customer.id %}">create</a></td>
+                    <!-- <td><a class="btn btn-sm btn-info" href=" {% url 'customer' request.user.customer.id %}">orders</a></td> -->
 
                 </tr>
                
@@ -36,10 +36,10 @@
         </div>
     </div>
     </div>
-    <hr> 
+    
    
     <div class="card card-body text-center">
-        <h5>ORDERS</h5>
+        <h5 class="btn-block">ORDERS</h5>
     </div>
    
     {% include 'accounts/status.html' %}
