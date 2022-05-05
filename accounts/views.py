@@ -39,7 +39,7 @@ def loginPage(request):
         user = authenticate(request,username=request.POST.get('username'), password=request.POST.get('password'))
         if user is not None:
             login(request, user)
-            return redirect('profile')
+            return redirect('profile_settings')
     return render(request,'accounts/login.html')
 
        

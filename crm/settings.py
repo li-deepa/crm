@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 
+
+
 # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'crm.settings')
 
 # django.setup()
@@ -46,7 +48,7 @@ INSTALLED_APPS = [
 
      'django_filters',
 
-
+      "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -55,6 +57,9 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
 
     'django.contrib.sessions.middleware.SessionMiddleware',
+    
+    "corsheaders.middleware.CorsMiddleware",
+    
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -133,7 +138,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_ROOT=os.path.join(BASE_DIR, "staticfiles",)
 
 
 STATIC_URL = 'static/'
@@ -160,3 +164,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get("EMAIL_ADDRESS")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASSWORD")
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+import django_on_heroku
+django_on_heroku.settings(locals())
