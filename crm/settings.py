@@ -27,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-!u-^wt(wlt2b)yk-b3t2ngf*8#03fyr=j^57+_+ur+y$-lzzet'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://crm-2.herokuapp.com/','*']
 
 
 # Application definition
@@ -98,6 +98,7 @@ import dj_database_url
 
 db_from_env= dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
+
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
