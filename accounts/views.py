@@ -49,7 +49,7 @@ def logoutUser(request):
     return redirect('login')
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
+# @allowed_users(allowed_roles=['admin'])
 def home(request):
     orders=Order.objects.all()
     last5_orders= Order.objects.all().order_by('-id')[:5]
@@ -72,10 +72,11 @@ def products(request):
     context={'products':products}
     return render(request,'accounts/products.html',context)
 
-# update products
-#createor add new products
+# add products
+#update products
+#delete products
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
+# @allowed_users(allowed_roles=['admin'])
 def customer_info(request):
     customers=Customer.objects.all()
     orders=Order.objects.all()
