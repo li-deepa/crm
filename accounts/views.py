@@ -67,7 +67,7 @@ def home(request):
 def products(request):
     products=Product.objects.all()
     context={'products':products}
-    print("products")
+    
     return render(request,'accounts/products.html',context)
 
 # add products
