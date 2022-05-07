@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import *
 from django.contrib.auth.models import User,Group
-from .forms import CustomerForm, OrderForm,CreateUserForm
+from .forms import CustomerForm, OrderForm,CreateUserForm,CreateProductForm
 from django.forms import inlineformset_factory
 from .filters import OrderFilter
 from django.contrib.auth.forms import UserCreationForm
@@ -20,18 +20,11 @@ def registerPage(request):
         if form.is_valid():
             user=form.save()
             username=form.cleaned_data.get('username')
-            
-            group=Group.objects.get(name='customer')
-            user.groups.add(group)
-
-            # # Customer.objects.create(
-            #     user=user,
-            #     name=user.username,)
-
+           
             messages.success(request,'account was created for'+username)
             return redirect('login')
 
-    context={'form':form}
+    context={'form':form,}
     return render(request,'accounts/register.html',context)
 
 @unauthenticated_user
@@ -40,7 +33,11 @@ def loginPage(request):
         user = authenticate(request,username=request.POST.get('username'), password=request.POST.get('password'))
         if user is not None:
             login(request, user)
-            return redirect('profile_settings')
+            return redirect('profile')
+        if request.user.is_staff:
+            login(request, user)
+            return redirect('home')
+        
     return render(request,'accounts/login.html')
 
        
@@ -73,8 +70,33 @@ def products(request):
     return render(request,'accounts/products.html',context)
 
 # add products
+def create_product(request):
+    form=CreateProductForm()
+
+    if request.method=='POST':
+        form=CreateProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("products")
+    context={'form':form}
+    return render(request,'accounts/create_product.html',context)   
+
 #update products
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer','admin'])
+def update_product(request,pk):
+    product=Product.objects.get(id=pk)
+    form=CreateProductForm(instance=product)
+    if request.method =='POST':
+        form=CreateProductForm(request.POST,request.FILES,instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('products')
+    context={'form':form}
+    return render(request,"accounts/create_product.html",context)
 #delete products
+
+
 @login_required(login_url='login')
 # @allowed_users(allowed_roles=['admin'])
 def customer_info(request):
@@ -119,7 +141,7 @@ def createOrder(request,pk):
     return render(request,"accounts/order_form.html",context)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
+# @allowed_users(allowed_roles=['admin'])
 
 def updateOrder(request,pk):
     order=Order.objects.get(id=pk)
@@ -132,7 +154,7 @@ def updateOrder(request,pk):
             return redirect('home')
 
     context={'form':form}
-    return render(request,"accounts/order_form.html",context)
+    return render(request,"accounts/updateorders.html",context)
 
 @login_required(login_url='login')
 def deleteOrder(request,pk):

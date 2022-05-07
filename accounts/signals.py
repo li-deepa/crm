@@ -6,11 +6,22 @@ from .models import Customer
 def customer_profile(sender,instance,created,**kwargs):
    
     if created:
-        group=Group.objects.get(name='customer')
+        group,created=Group.objects.get_or_create(name='customer')
         instance.groups.add(group)
 
         Customer.objects.create(
                 user=instance,
-                name=instance.username,)
+                name=instance.username,
+                email = instance.email)
         print("profile created")
+#     else:
+#         group,created=Group.objects.get_or_create(name='admin')
+#         instance.groups.add(group)
+
+#         Customer.objects.create(
+#                 user=instance,
+#                 name=instance.username,
+#                 email = instance.email)
+#         print("profile created")
+    
 post_save.connect(customer_profile,sender=User)
