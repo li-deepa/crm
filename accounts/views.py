@@ -72,7 +72,7 @@ def products(request):
 
 # add products
 def create_product(request):
-    product=Product.objects.all()
+    products=Product.objects.all()
     form=CreateProductForm()
 
     if request.method=='POST':
@@ -80,7 +80,7 @@ def create_product(request):
         if form.is_valid():
             form.save()
             return redirect("products")
-    context={'form':form,'product':product}
+    context={'form':form,'products':products}
     return render(request,'accounts/create_product.html',context)   
 
 #update products
