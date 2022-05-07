@@ -39,7 +39,7 @@ class Product(models.Model):
     description=models.CharField(max_length=200,null=True,blank=True)
     category=models.CharField(max_length=200,null=True,choices=CATEGORY)
     date_created=models.DateTimeField(auto_now_add=True,null=True)
-    tags=models.CharField(max_length=200,null=True)
+    # tags=models.CharField(max_length=200,null=True)
     product_pic= models.ImageField(default="3.JPG",null=True,blank=True)
     # tags=models.ManyToManyField(Tag)
 
