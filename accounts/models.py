@@ -33,13 +33,14 @@ class Product(models.Model):
 
 
     )
-    product_pic= models.ImageField(null=True,blank=True)
+    
     name=models.CharField(max_length=200,null=True)
     price=models.FloatField(null=True)
     description=models.CharField(max_length=200,null=True,blank=True)
     category=models.CharField(max_length=200,null=True,choices=CATEGORY)
     date_created=models.DateTimeField(auto_now_add=True,null=True)
     tags=models.CharField(max_length=200,null=True)
+    product_pic= models.ImageField(default="3.JPG",null=True,blank=True)
     # tags=models.ManyToManyField(Tag)
 
     def __str__(self) -> str:

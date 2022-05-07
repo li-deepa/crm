@@ -67,10 +67,12 @@ def home(request):
 def products(request):
     products=Product.objects.all()
     context={'products':products}
+    print("products")
     return render(request,'accounts/products.html',context)
 
 # add products
 def create_product(request):
+    product=Product.objects.all()
     form=CreateProductForm()
 
     if request.method=='POST':
@@ -78,7 +80,7 @@ def create_product(request):
         if form.is_valid():
             form.save()
             return redirect("products")
-    context={'form':form}
+    context={'form':form,'product':product}
     return render(request,'accounts/create_product.html',context)   
 
 #update products

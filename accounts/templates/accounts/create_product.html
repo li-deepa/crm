@@ -4,8 +4,8 @@
 {% block content %}
 <style>
     .product-pic{
-        max-width: 200px;
-        max-height: 200px;
+        width: 200px;
+        height: 200px;
        
     }
 </style>
@@ -16,18 +16,15 @@
         <div class="card card-body">
             <a class="btn btn-warning" href="{% url 'products' %}">Back to products</a>
             <hr>
-           <h3 style="text-align:center">Product</h3>
+           <h5 style="text-align:center">Product</h5>
         <hr>
-        {% if product.product_pic %}
         <img class="product-pic" src="{{request.product.product_pic.url}}" >
-    {% else %}
-        <img class="product-pic" src="{{request.product_pic.url}}" >
-    {% endif %}
+  
        
         </div> </div>
 <div class="card col-md-6">
         <div class="card card-body">
-           <h3 style="text-align:center">Profile details</h3>
+           <h3 style="text-align:center">product details</h3>
         <hr>
    <form method="post" action="" enctype="multipart/form-data">
 
