@@ -72,7 +72,7 @@ def products(request):
 
 # add products
 def create_product(request):
-    products=Product.objects.all()
+    product=Product.objects.all()
     form=CreateProductForm()
 
     if request.method=='POST':
@@ -80,7 +80,7 @@ def create_product(request):
         if form.is_valid():
             form.save()
             return redirect("products")
-    context={'form':form,'products':products}
+    context={'form':form,'product':product}
     return render(request,'accounts/create_product.html',context)   
 
 #update products
@@ -97,7 +97,14 @@ def update_product(request,pk):
     context={'form':form}
     return render(request,"accounts/create_product.html",context)
 #delete products
-
+@login_required(login_url='login')
+def deleteProduct(request,pk):
+        product=Product.objects.get(id=pk)
+        if request.method =='POST':
+            product.delete()
+            return redirect('products')
+        context={'item':product}
+        return render(request,"accounts/delete_product.html",context)
 
 @login_required(login_url='login')
 # @allowed_users(allowed_roles=['admin'])
