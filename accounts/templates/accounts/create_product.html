@@ -4,29 +4,15 @@
 {% block content %}
 <style>
     .product-pic{
-        width: 200px;
-        height: 200px;
+        max-width: 200px;
+        max-height: 200px;
         margin: 0 auto;
         border-radius: 50%;
-       
     }
 </style>
 <div class="row">
     
-    <div class="card col-md-6">
-
-        <div class="card card-body">
-            <a class="btn btn-warning" href="{% url 'products' %}">Back to products</a>
-            <hr>
-           <h5 style="text-align:center">Product</h5>
-        <hr>
-       
-        <img class="product-pic" src="{{request.product.product_pic.url}}" >
-     
-        
   
-       
-        </div> </div>
 <div class="card col-md-6">
         <div class="card card-body">
            <h3 style="text-align:center">product details</h3>
@@ -36,13 +22,27 @@
         {% csrf_token%}
 
         {{form.as_p}}
-     <input  class="btn btn-primary" type="submit" name="Update Information" >
+     <input  class="btn btn-primary" type="submit" name="Update Information"             >
 
 
    </form>
 </div>
 
 </div>
+<div class="card col-md-6">
+
+   <div class="card card-body">
+       <a class="btn btn-warning" href="{% url 'products' %}">Back to products</a>
+       <hr>
+      <h3 style="text-align:center">Product Settings</h3>
+   <hr>
+   
+ 
+ 
+ <img class="product-pic" src="{{request.product.product_pic.url}}" >
+
+  
+   </div> </div>
 </div>
 
 {% endblock %}

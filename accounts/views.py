@@ -34,9 +34,7 @@ def loginPage(request):
         if user is not None:
             login(request, user)
             return redirect('profile')
-        if request.user.is_staff:
-            login(request, user)
-            return redirect('home')
+        
         
     return render(request,'accounts/login.html')
 
@@ -72,15 +70,17 @@ def products(request):
 
 # add products
 def create_product(request):
-    product=Product.objects.all()
+    
     form=CreateProductForm()
 
     if request.method=='POST':
-        form=CreateProductForm(request.POST)
+        form=CreateProductForm(request.POST,request.FILES)
         if form.is_valid():
+            # file = request.FILES['image']
             form.save()
             return redirect("products")
-    context={'form':form,'product':product}
+    
+    context={'form':form,}
     return render(request,'accounts/create_product.html',context)   
 
 #update products
@@ -88,13 +88,16 @@ def create_product(request):
 @allowed_users(allowed_roles=['customer','admin'])
 def update_product(request,pk):
     product=Product.objects.get(id=pk)
+    # product_img=product.value('product_pic')
     form=CreateProductForm(instance=product)
     if request.method =='POST':
         form=CreateProductForm(request.POST,request.FILES,instance=product)
         if form.is_valid():
             form.save()
             return redirect('products')
-    context={'form':form}
+    
+    # print(product_img)
+    context={'form':form,}
     return render(request,"accounts/create_product.html",context)
 #delete products
 @login_required(login_url='login')
@@ -160,7 +163,7 @@ def updateOrder(request,pk):
         form=OrderForm(request.POST,instance=order)
         if form.is_valid():
             form.save()
-            return redirect('home')
+            return redirect('profile')
 
     context={'form':form}
     return render(request,"accounts/updateorders.html",context)
@@ -185,9 +188,6 @@ def profile(request):
     pending=orders.filter(status='pending').count()
     out_delivery=orders.filter(status='out for delivery').count()
 
-    
-    print(orders)
-
     context={'orders':orders,'total_orders':total_orders,
     "delivered":delivered,"pending":pending,
     'out_delivery':out_delivery}
@@ -203,5 +203,6 @@ def profile_settings(request):
         if form.is_valid():
             form.save()
             return redirect('profile')
+    # print(form)
     context={'form':form}
     return render(request,"accounts/profile_settings.html",context)
